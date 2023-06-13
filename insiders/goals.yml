@@ -1,0 +1,7 @@
+goals:
+  1000:
+    name: GraviFridge User Manual
+    features:
+    - name: The project itself!
+      ref: /
+      since: 2023/06/13
