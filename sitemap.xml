@@ -2,117 +2,117 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://pawamoy.github.io/pypi-insiders/</loc>
-         <lastmod>2023-10-19</lastmod>
+         <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://pawamoy.github.io/pypi-insiders/changelog/</loc>
-         <lastmod>2023-10-19</lastmod>
+         <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://pawamoy.github.io/pypi-insiders/code_of_conduct/</loc>
-         <lastmod>2023-10-19</lastmod>
+         <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://pawamoy.github.io/pypi-insiders/contributing/</loc>
-         <lastmod>2023-10-19</lastmod>
+         <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://pawamoy.github.io/pypi-insiders/credits/</loc>
-         <lastmod>2023-10-19</lastmod>
+         <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://pawamoy.github.io/pypi-insiders/license/</loc>
-         <lastmod>2023-10-19</lastmod>
+         <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://pawamoy.github.io/pypi-insiders/insiders/</loc>
-         <lastmod>2023-10-19</lastmod>
+         <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://pawamoy.github.io/pypi-insiders/insiders/changelog/</loc>
-         <lastmod>2023-10-19</lastmod>
+         <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://pawamoy.github.io/pypi-insiders/insiders/installation/</loc>
-         <lastmod>2023-10-19</lastmod>
+         <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://pawamoy.github.io/pypi-insiders/reference/SUMMARY/</loc>
-         <lastmod>2023-10-19</lastmod>
+         <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://pawamoy.github.io/pypi-insiders/reference/pypi_insiders/</loc>
-         <lastmod>2023-10-19</lastmod>
+         <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://pawamoy.github.io/pypi-insiders/reference/pypi_insiders/debug/</loc>
-         <lastmod>2023-10-19</lastmod>
+         <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://pawamoy.github.io/pypi-insiders/reference/pypi_insiders/defaults/</loc>
-         <lastmod>2023-10-19</lastmod>
+         <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://pawamoy.github.io/pypi-insiders/reference/pypi_insiders/logger/</loc>
-         <lastmod>2023-10-19</lastmod>
+         <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://pawamoy.github.io/pypi-insiders/reference/pypi_insiders/repos/</loc>
-         <lastmod>2023-10-19</lastmod>
+         <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://pawamoy.github.io/pypi-insiders/reference/pypi_insiders/server/</loc>
-         <lastmod>2023-10-19</lastmod>
+         <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://pawamoy.github.io/pypi-insiders/reference/pypi_insiders/update/</loc>
-         <lastmod>2023-10-19</lastmod>
+         <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://pawamoy.github.io/pypi-insiders/reference/pypi_insiders/watcher/</loc>
-         <lastmod>2023-10-19</lastmod>
+         <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://pawamoy.github.io/pypi-insiders/reference/pypi_insiders/cli/</loc>
-         <lastmod>2023-10-19</lastmod>
+         <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://pawamoy.github.io/pypi-insiders/reference/pypi_insiders/cli/repos/</loc>
-         <lastmod>2023-10-19</lastmod>
+         <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://pawamoy.github.io/pypi-insiders/reference/pypi_insiders/cli/server/</loc>
-         <lastmod>2023-10-19</lastmod>
+         <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://pawamoy.github.io/pypi-insiders/reference/pypi_insiders/cli/update/</loc>
-         <lastmod>2023-10-19</lastmod>
+         <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://pawamoy.github.io/pypi-insiders/reference/pypi_insiders/cli/watcher/</loc>
-         <lastmod>2023-10-19</lastmod>
+         <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
