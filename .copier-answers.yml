@@ -1,0 +1,24 @@
+# Changes here will be overwritten by Copier
+_commit: 1.5.0
+_src_path: gh:pawamoy/copier-uv
+author_email: dev@pawamoy.fr
+author_fullname: Timothée Mazzucotelli
+author_username: pawamoy
+copyright_date: '2023'
+copyright_holder: Timothée Mazzucotelli
+copyright_holder_email: dev@pawamoy.fr
+copyright_license: ISC License
+insiders: true
+insiders_email: insiders@pawamoy.fr
+insiders_repository_name: pypi-insiders
+project_description: Self-hosted PyPI server with automatic updates for Insiders versions
+    of projects.
+project_name: PyPI Insiders
+public_release: true
+python_package_command_line_name: pypi-insiders
+python_package_distribution_name: pypi-insiders
+python_package_import_name: pypi_insiders
+repository_name: pypi-insiders
+repository_namespace: pawamoy
+repository_provider: github.com
+
