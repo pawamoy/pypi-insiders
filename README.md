@@ -8,6 +8,9 @@
 
 Self-hosted PyPI server with automatic updates for Insiders versions of projects.
 
+> [!NOTE]
+> This project will soon be integrated into https://github.com/pawamoy/insiders-project.
+
 ## Motivation
 
 Some open source projects follow the **sponsorware release strategy**,
