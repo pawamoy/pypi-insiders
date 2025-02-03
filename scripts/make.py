@@ -56,7 +56,7 @@ def setup() -> None:
     print("Installing dependencies (default environment)")
     default_venv = Path(".venv")
     if not default_venv.exists():
-        shell("uv venv --python python")
+        shell("uv venv")
     uv_install(default_venv)
 
     if PYTHON_VERSIONS:
@@ -69,12 +69,10 @@ def setup() -> None:
                 uv_install(venv_path)
 
 
-def run(version: str, cmd: str, *args: str, no_sync: bool = False, **kwargs: Any) -> None:
+def run(version: str, cmd: str, *args: str, **kwargs: Any) -> None:
     """Run a command in a virtual environment."""
     kwargs = {"check": True, **kwargs}
-    uv_run = ["uv", "run"]
-    if no_sync:
-        uv_run.append("--no-sync")
+    uv_run = ["uv", "run", "--no-sync"]
     if version == "default":
         with environ(UV_PROJECT_ENVIRONMENT=".venv"):
             subprocess.run([*uv_run, cmd, *args], **kwargs)  # noqa: S603, PLW1510
@@ -103,7 +101,7 @@ def clean() -> None:
     """Delete build artifacts and cache files."""
     paths_to_clean = ["build", "dist", "htmlcov", "site", ".coverage*", ".pdm-build"]
     for path in paths_to_clean:
-        shell(f"rm -rf {path}")
+        shutil.rmtree(path, ignore_errors=True)
 
     cache_dirs = {".cache", ".pytest_cache", ".mypy_cache", ".ruff_cache", "__pycache__"}
     for dirpath in Path(".").rglob("*/"):
@@ -113,8 +111,7 @@ def clean() -> None:
 
 def vscode() -> None:
     """Configure VSCode to work on this project."""
-    Path(".vscode").mkdir(parents=True, exist_ok=True)
-    shell("cp -v config/vscode/* .vscode")
+    shutil.copytree("config/vscode", ".vscode", dirs_exist_ok=True)
 
 
 def main() -> int:
@@ -142,7 +139,7 @@ def main() -> int:
             )
             if os.path.exists(".venv"):
                 print("\nAvailable tasks", flush=True)
-                run("default", "duty", "--list", no_sync=True)
+                run("default", "duty", "--list")
         return 0
 
     while args:
