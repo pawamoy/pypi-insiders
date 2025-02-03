@@ -428,7 +428,9 @@ def configure_logging(level: str, path: str | Path | None = None, allow: str | t
         "<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> | "
         "<level>{level: <8}</level> | <cyan>{pkg}</cyan> - <level>{message}</level>"
     )
-    logger.configure(handlers=[{"sink": sink, "level": log_level, "format": loguru_format}])
+
+    # To make mypy happy this function should be rewritten to have a separate path for sink being a Path or a Stream.
+    logger.configure(handlers=[{"sink": sink, "level": log_level, "format": loguru_format}])  # type: ignore[list-item, misc]
 
 
 def main(args: list[str] | None = None) -> int:

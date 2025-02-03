@@ -41,7 +41,7 @@ class DistCollection:
         Parameters:
             index_url: The URL of the PyPI index to use.
             index_user: The username for the index if required.
-            index_password: The password for the index if required.`
+            index_password: The password for the index if required.
         """
         self.index_url: str = index_url
         self.index_user: str = index_user
