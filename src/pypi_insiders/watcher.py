@@ -93,6 +93,10 @@ def start_watcher(
         f"--conf-path={conf_path}",
         f"--repo-dir={repo_dir}",
         f"--index-url={index_url}",
+        f"--sleep={sleep}",
+        "--log-level=debug",
+        "--log-path",
+        str(logs_file),
     ]
 
     if index_user and index_password:
@@ -102,15 +106,6 @@ def start_watcher(
                 f"--index-password={index_password}",
             ],
         )
-
-    cmd.extend(
-        [
-            f"--sleep={sleep}",
-            "--log-level=debug",
-            "--log-path",
-            str(logs_file),
-        ],
-    )
 
     subprocess.Popen(cmd)  # noqa: S603
 
