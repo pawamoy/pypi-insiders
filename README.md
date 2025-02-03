@@ -3,7 +3,6 @@
 [![ci](https://github.com/pawamoy/pypi-insiders/workflows/ci/badge.svg)](https://github.com/pawamoy/pypi-insiders/actions?query=workflow%3Aci)
 [![documentation](https://img.shields.io/badge/docs-mkdocs-708FCC.svg?style=flat)](https://pawamoy.github.io/pypi-insiders/)
 [![pypi version](https://img.shields.io/pypi/v/pypi-insiders.svg)](https://pypi.org/project/pypi-insiders/)
-[![gitpod](https://img.shields.io/badge/gitpod-workspace-708FCC.svg?style=flat)](https://gitpod.io/#https://github.com/pawamoy/pypi-insiders)
 [![gitter](https://badges.gitter.im/join%20chat.svg)](https://app.gitter.im/#/room/#pypi-insiders:gitter.im)
 
 Self-hosted PyPI server with automatic updates for Insiders versions of projects.
