@@ -12,7 +12,14 @@ from typing import TYPE_CHECKING
 
 import psutil
 
-from pypi_insiders.defaults import DEFAULT_CONF_PATH, DEFAULT_INDEX_URL, DEFAULT_REPO_DIR, DEFAULT_WATCHER_SLEEP
+from pypi_insiders.defaults import (
+    DEFAULT_CONF_PATH,
+    DEFAULT_INDEX_PASSWORD,
+    DEFAULT_INDEX_URL,
+    DEFAULT_INDEX_USER,
+    DEFAULT_REPO_DIR,
+    DEFAULT_WATCHER_SLEEP,
+)
 from pypi_insiders.logger import logger, tail
 from pypi_insiders.repos import RepositoryConfig
 from pypi_insiders.update import update_packages
@@ -59,6 +66,8 @@ def start_watcher(
     conf_path: str | Path = DEFAULT_CONF_PATH,
     repo_dir: str | Path = DEFAULT_REPO_DIR,
     index_url: str = DEFAULT_INDEX_URL,
+    index_user: str = DEFAULT_INDEX_USER,
+    index_password: str = DEFAULT_INDEX_PASSWORD,
     sleep: int = DEFAULT_WATCHER_SLEEP,
 ) -> None:
     """Start the watcher in the background.
@@ -67,27 +76,38 @@ def start_watcher(
         conf_path: The path to the configuration file.
         repo_dir: The directory in which the repositories are cloned.
         index_url: The URL of the PyPI index to upload to.
+        index_user: The username for the index if required.
+        index_password: The password for the index if required.
         sleep: The time to sleep in between iterations, in seconds.
     """
     Path(repo_dir).mkdir(parents=True, exist_ok=True)
     logs_dir = tempfile.mkdtemp(prefix="pypi-insiders-watcher-")
     logs_file = Path(logs_dir) / "watcher.log"
     logger.info(f"Watcher logs: {logs_file}")
-    subprocess.Popen(  # noqa: S603
-        [
-            sys.executable,
-            "-Impypi_insiders",
-            "watcher",
-            "run",
-            f"--conf-path={conf_path}",
-            f"--repo-dir={repo_dir}",
-            f"--index-url={index_url}",
-            f"--sleep={sleep}",
-            "--log-level=debug",
-            "--log-path",
-            logs_file,
-        ],
-    )
+
+    cmd = [
+        sys.executable,
+        "-Impypi_insiders",
+        "watcher",
+        "run",
+        f"--conf-path={conf_path}",
+        f"--repo-dir={repo_dir}",
+        f"--index-url={index_url}",
+        f"--sleep={sleep}",
+        "--log-level=debug",
+        "--log-path",
+        str(logs_file),
+    ]
+
+    if index_user and index_password:
+        cmd.extend(
+            [
+                f"--index-user={index_user}",
+                f"--index-password={index_password}",
+            ],
+        )
+
+    subprocess.Popen(cmd)  # noqa: S603
 
 
 def stop_watcher() -> bool:
@@ -128,6 +148,8 @@ def watcher_loop(
     conf_path: str | Path = DEFAULT_CONF_PATH,
     repo_dir: str | Path = DEFAULT_REPO_DIR,
     index_url: str = DEFAULT_INDEX_URL,
+    index_user: str = DEFAULT_INDEX_USER,
+    index_password: str = DEFAULT_INDEX_PASSWORD,
     sleep: int = DEFAULT_WATCHER_SLEEP,
 ) -> None:
     """Run the watcher in the foreground.
@@ -136,13 +158,22 @@ def watcher_loop(
         conf_path: The path to the configuration file.
         repo_dir: The directory containing the repository clones.
         index_url: The URL of the PyPI index to upload to.
+        index_user: The username for the index if required.
+        index_password: The password for the index if required.
         sleep: The time to sleep in between iterations, in seconds.
     """
     graceful_exit = GracefulExit()
     config = RepositoryConfig(conf_path)
     while True:
         for repo in config.get_repositories():
-            update_packages(conf_path=conf_path, repo_dir=repo_dir, index_url=index_url, repos=[repo])
+            update_packages(
+                conf_path=conf_path,
+                repo_dir=repo_dir,
+                index_url=index_url,
+                index_user=index_user,
+                index_password=index_password,
+                repos=[repo],
+            )
             if graceful_exit:
                 break
         if graceful_exit:

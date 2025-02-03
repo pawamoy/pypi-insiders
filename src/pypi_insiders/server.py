@@ -7,13 +7,20 @@ import sys
 import tempfile
 from pathlib import Path
 from typing import TYPE_CHECKING
+from urllib.parse import quote, urlparse, urlunparse
 
 import psutil
 from twine.commands.upload import upload
 from twine.settings import Settings
 from unearth import PackageFinder
 
-from pypi_insiders.defaults import DEFAULT_DIST_DIR, DEFAULT_INDEX_URL, DEFAULT_PORT
+from pypi_insiders.defaults import (
+    DEFAULT_DIST_DIR,
+    DEFAULT_INDEX_PASSWORD,
+    DEFAULT_INDEX_URL,
+    DEFAULT_INDEX_USER,
+    DEFAULT_PORT,
+)
 from pypi_insiders.logger import logger, redirect_output_to_logging, tail
 
 if TYPE_CHECKING:
@@ -23,14 +30,45 @@ if TYPE_CHECKING:
 class DistCollection:
     """Manage distributions."""
 
-    def __init__(self, index_url: str = DEFAULT_INDEX_URL) -> None:
+    def __init__(
+        self,
+        index_url: str = DEFAULT_INDEX_URL,
+        index_user: str = DEFAULT_INDEX_USER,
+        index_password: str = DEFAULT_INDEX_PASSWORD,
+    ) -> None:
         """Initialize the instance.
 
         Parameters:
             index_url: The URL of the PyPI index to use.
+            index_user: The username for the index if required.
+            index_password: The password for the index if required.
         """
         self.index_url: str = index_url
-        self._finder = PackageFinder(index_urls=[f"{self.index_url}/simple"])
+        self.index_user: str = index_user
+        self.index_password: str = index_password
+        index = urlparse(self.index_url)
+        parts = list(index)
+        path = parts[2]
+
+        # ensure index url ends on slash
+        if not path.endswith("/"):
+            path += "/"
+
+        # ensure index url ends with /simple/
+        if not path.endswith("/simple/"):
+            path += "simple/"
+
+        parts[2] = path
+
+        # insert username and password into the url
+        if self.index_user and self.index_password:
+            netloc = parts[1].rsplit("@")[-1]
+            netloc = f"{quote(index_user)}:{index_password}@{netloc}"
+            parts[1] = netloc
+
+        index_url = urlunparse(parts)
+
+        self._finder = PackageFinder(index_urls=[index_url])
 
     def latest_version(self, package: str) -> str | None:
         """Get the latest version of a package.
@@ -69,8 +107,8 @@ class DistCollection:
                     non_interactive=True,
                     skip_existing=True,
                     repository_url=self.index_url,
-                    username="",
-                    password="",
+                    username=self.index_user,
+                    password=self.index_password,
                     disable_progress_bar=True,
                     verbose=True,
                 ),

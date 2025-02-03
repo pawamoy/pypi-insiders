@@ -27,7 +27,9 @@ from pypi_insiders.cli.watcher import run_watcher
 from pypi_insiders.defaults import (
     DEFAULT_CONF_PATH,
     DEFAULT_DIST_DIR,
+    DEFAULT_INDEX_PASSWORD,
     DEFAULT_INDEX_URL,
+    DEFAULT_INDEX_USER,
     DEFAULT_PORT,
     DEFAULT_REPO_DIR,
     DEFAULT_WATCHER_SLEEP,
@@ -220,6 +222,34 @@ def add_arg_index_url(parser: argparse.ArgumentParser) -> None:
     )
 
 
+def add_arg_index_user(parser: argparse.ArgumentParser) -> None:
+    """Add an index-user option to the parser.
+
+    Parameters:
+        parser: The parser to add the option to.
+    """
+    parser.add_argument(
+        "-u",
+        "--index-user",
+        help="User for the index to upload packages to (default: %(default)s).",
+        default=DEFAULT_INDEX_USER,
+    )
+
+
+def add_arg_index_password(parser: argparse.ArgumentParser) -> None:
+    """Add an index-password option to the parser.
+
+    Parameters:
+        parser: The parser to add the option to.
+    """
+    parser.add_argument(
+        "-p",
+        "--index-password",
+        help="Password for the index to upload packages to (default: %(default)s).",
+        default=DEFAULT_INDEX_PASSWORD,
+    )
+
+
 def add_arg_sleep(parser: argparse.ArgumentParser) -> None:
     """Add a sleep option to the parser.
 
@@ -320,14 +350,20 @@ def get_parser() -> argparse.ArgumentParser:
     # add update options
     add_arg_repo_dir(update)
     add_arg_index_url(update)
+    add_arg_index_user(update)
+    add_arg_index_password(update)
     add_arg_repositories(update, nargs="*")
 
     # add watcher options
     add_arg_repo_dir(watcher_start)
     add_arg_index_url(watcher_start)
+    add_arg_index_user(watcher_start)
+    add_arg_index_password(watcher_start)
     add_arg_sleep(watcher_start)
     add_arg_repo_dir(watcher_run)
     add_arg_index_url(watcher_run)
+    add_arg_index_user(watcher_run)
+    add_arg_index_password(watcher_run)
     add_arg_sleep(watcher_run)
 
     return parser
