@@ -392,7 +392,7 @@ def configure_logging(level: str, path: str | Path | None = None, allow: str | t
         "<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> | "
         "<level>{level: <8}</level> | <cyan>{pkg}</cyan> - <level>{message}</level>"
     )
-    logger.configure(handlers=[{"sink": sink, "level": log_level, "format": loguru_format}])
+    logger.configure(handlers=[{"sink": sink, "level": log_level, "format": loguru_format}])  # type: ignore[list-item,misc]
 
 
 def main(args: list[str] | None = None) -> int:
