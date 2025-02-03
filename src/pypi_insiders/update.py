@@ -45,7 +45,7 @@ def update_packages(
     cache = RepositoryCache(repo_dir)
     dists = DistCollection(index_url)
     config_repos = config.get_repositories()
-    repos = repos and list(repos) or []
+    repos = (repos and list(repos)) or []
     selected_repos = (
         {repo: package for repo, package in config_repos.items() if repo in repos} if repos else config_repos
     )

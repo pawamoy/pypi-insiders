@@ -12,9 +12,9 @@ from typing import TYPE_CHECKING
 from loguru import logger
 
 if TYPE_CHECKING:
-    from collections.abc import Iterator
+    from collections.abc import Callable, Iterator
     from pathlib import Path
-    from typing import Any, Callable
+    from typing import Any
 
     from loguru import Record
 
