@@ -6,7 +6,13 @@ from typing import TYPE_CHECKING
 
 from packaging.version import InvalidVersion, Version
 
-from pypi_insiders.defaults import DEFAULT_CONF_PATH, DEFAULT_INDEX_URL, DEFAULT_REPO_DIR
+from pypi_insiders.defaults import (
+    DEFAULT_CONF_PATH,
+    DEFAULT_INDEX_PASSWORD,
+    DEFAULT_INDEX_URL,
+    DEFAULT_INDEX_USER,
+    DEFAULT_REPO_DIR,
+)
 from pypi_insiders.logger import logger
 from pypi_insiders.repos import RepositoryCache, RepositoryConfig
 from pypi_insiders.server import DistCollection
@@ -27,6 +33,8 @@ def update_packages(
     conf_path: str | Path = DEFAULT_CONF_PATH,
     repo_dir: str | Path = DEFAULT_REPO_DIR,
     index_url: str = DEFAULT_INDEX_URL,
+    index_user: str = DEFAULT_INDEX_USER,
+    index_password: str = DEFAULT_INDEX_PASSWORD,
     repos: Iterable[str] | None = None,
 ) -> None:
     """Update PyPI packages.
@@ -39,11 +47,13 @@ def update_packages(
         conf_path: The path to the configuration file.
         repo_dir: The directory containing the repository clones.
         index_url: The URL of the PyPI index to upload to.
+        index_user: The username for the index if required.
+        index_password: The password for the index if required.
         repos: Repositories to update. By default, all configured repositories are updated.
     """
     config = RepositoryConfig(conf_path)
     cache = RepositoryCache(repo_dir)
-    dists = DistCollection(index_url)
+    dists = DistCollection(index_url, index_user, index_password)
     config_repos = config.get_repositories()
     repos = repos and list(repos) or []
     selected_repos = (

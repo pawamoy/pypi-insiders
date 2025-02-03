@@ -19,5 +19,12 @@ def run_update(opts: argparse.Namespace) -> int:
     Returns:
         A CLI exit code.
     """
-    update_packages(conf_path=opts.conf_path, repo_dir=opts.repo_dir, index_url=opts.index_url, repos=opts.repositories)
+    update_packages(
+        conf_path=opts.conf_path,
+        repo_dir=opts.repo_dir,
+        index_url=opts.index_url,
+        index_user=opts.index_user,
+        index_password=opts.index_password,
+        repos=opts.repositories,
+    )
     return 0

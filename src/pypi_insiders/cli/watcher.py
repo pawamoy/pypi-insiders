@@ -24,6 +24,8 @@ def run_watcher_start(opts: argparse.Namespace) -> int:
         conf_path=opts.conf_path,
         repo_dir=opts.repo_dir,
         index_url=opts.index_url,
+        index_user=opts.index_user,
+        index_password=opts.index_password,
         sleep=opts.sleep,
     )
     return 0
@@ -72,6 +74,8 @@ def run_watcher_run(opts: argparse.Namespace) -> int:
         conf_path=opts.conf_path,
         repo_dir=opts.repo_dir,
         index_url=opts.index_url,
+        index_user=opts.index_user,
+        index_password=opts.index_password,
         sleep=opts.sleep,
     )
     return 0

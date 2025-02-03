@@ -168,3 +168,10 @@ Show logs of the server/watcher:
 pypi-insiders server logs
 pypi-insiders watcher logs
 ```
+
+Upload the packages to a private index that requires authentication.
+
+```bash
+pypi-insiders update --index-url <url> --index-user user --index-password <password>
+pypi-insiders watcher start --index-url <url> --index-user user --index-password <password>
+```
