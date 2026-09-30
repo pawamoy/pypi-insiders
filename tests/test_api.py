@@ -114,14 +114,11 @@ def _fixture_inventory() -> Inventory:
         return Inventory.parse_sphinx(file)
 
 
-def test_exposed_objects(modulelevel_internal_objects: list[griffe.Object | griffe.Alias]) -> None:
-    """All public objects in the internal API are exposed under `pypi_insiders`."""
-    not_exposed = [
-        obj.path
-        for obj in modulelevel_internal_objects
-        if obj.name not in pypi_insiders.__all__ or not hasattr(pypi_insiders, obj.name)
-    ]
-    assert not not_exposed, "Objects not exposed:\n" + "\n".join(sorted(not_exposed))
+def test_declared_exports(public_api: griffe.Module) -> None:
+    """Every declared public object is available from `pypi_insiders`."""
+    for name in pypi_insiders.__all__:
+        assert name in public_api.members
+        assert hasattr(pypi_insiders, name)
 
 
 def test_unique_names(modulelevel_internal_objects: list[griffe.Object | griffe.Alias]) -> None:

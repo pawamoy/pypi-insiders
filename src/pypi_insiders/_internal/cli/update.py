@@ -16,20 +16,31 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-"""Deprecated. Import from `pypi_insiders._internal.update` instead."""
+from __future__ import annotations
 
-# YORE: Bump 2: Remove file.
+from typing import TYPE_CHECKING
 
-import warnings
-from typing import Any
+from pypi_insiders._internal.update import update_packages
 
-from pypi_insiders._internal import update as _update
+if TYPE_CHECKING:
+    import argparse
 
 
-def __getattr__(name: str) -> Any:
-    warnings.warn(
-        "Importing from `pypi_insiders.update` is deprecated. Import from `pypi_insiders._internal.update` instead.",
-        DeprecationWarning,
-        stacklevel=2,
+def run_update(opts: argparse.Namespace) -> int:
+    """Command to update packages.
+
+    Parameters:
+        opts: The parsed CLI arguments.
+
+    Returns:
+        A CLI exit code.
+    """
+    update_packages(
+        conf_path=opts.conf_path,
+        repo_dir=opts.repo_dir,
+        index_url=opts.index_url,
+        index_user=opts.index_user,
+        index_password=opts.index_password,
+        repos=opts.repositories,
     )
-    return getattr(_update, name)
+    return 0

@@ -33,8 +33,8 @@ if TYPE_CHECKING:
 
 
 def test_main() -> None:
-    """Basic CLI test."""
-    assert main([]) == 0
+    """Return an error when no command is given."""
+    assert main([]) == 1
 
 
 def test_show_help(capsys: pytest.CaptureFixture) -> None:
@@ -52,12 +52,12 @@ def test_show_help(capsys: pytest.CaptureFixture) -> None:
 @pytest.mark.xfail
 def test_server_commands() -> None:
     """Server commands."""
-    assert cli.main(["server", "start", "--port=31412"]) == 0
+    assert main(["server", "start", "--port=31412"]) == 0
     time.sleep(5)
-    assert cli.main(["server", "status", "--port=31412"]) == 0
-    assert cli.main(["server", "stop", "--port=31412"]) == 0
+    assert main(["server", "status", "--port=31412"]) == 0
+    assert main(["server", "stop", "--port=31412"]) == 0
     time.sleep(5)
-    assert cli.main(["server", "status", "--port=31412"]) == 0
+    assert main(["server", "status", "--port=31412"]) == 0
 
 
 @pytest.mark.xfail
@@ -68,7 +68,7 @@ def test_watcher_commands(tmp_path: Path) -> None:
         tmp_path: A temporary directory path.
     """
     assert (
-        cli.main(
+        main(
             [
                 "watcher",
                 "start",
@@ -81,9 +81,9 @@ def test_watcher_commands(tmp_path: Path) -> None:
         == 0
     )
     time.sleep(5)
-    assert cli.main(["watcher", "status"]) == 0
-    assert cli.main(["watcher", "stop"]) == 0
-    assert cli.main(["watcher", "status"]) == 0
+    assert main(["watcher", "status"]) == 0
+    assert main(["watcher", "stop"]) == 0
+    assert main(["watcher", "status"]) == 0
 
 
 @pytest.mark.xfail
@@ -93,7 +93,7 @@ def test_update_command(tmp_path: Path) -> None:
     Parameters:
         tmp_path: A temporary directory path.
     """
-    cli.main(
+    main(
         [
             "repos",
             "add",
@@ -101,10 +101,10 @@ def test_update_command(tmp_path: Path) -> None:
             f"--conf-path={tmp_path / 'repos.json'}",
         ],
     )
-    cli.main(["server", "start", "--port=31413", f"--dist-dir={tmp_path / 'dists'}"])
+    main(["server", "start", "--port=31413", f"--dist-dir={tmp_path / 'dists'}"])
     time.sleep(5)
     assert (
-        cli.main(
+        main(
             [
                 "update",
                 f"--conf-path={tmp_path / 'repos.json'}",
@@ -114,7 +114,7 @@ def test_update_command(tmp_path: Path) -> None:
         )
         == 0
     )
-    cli.main(["server", "stop", "--port=31413"])
+    main(["server", "stop", "--port=31413"])
 
 
 def test_repos_commands(tmp_path: Path) -> None:
@@ -124,7 +124,7 @@ def test_repos_commands(tmp_path: Path) -> None:
         tmp_path: A temporary directory path.
     """
     assert (
-        cli.main(
+        main(
             [
                 "repos",
                 "add",
@@ -135,8 +135,19 @@ def test_repos_commands(tmp_path: Path) -> None:
         )
         == 0
     )
-    assert cli.main(["repos", "list", f"--conf-path={tmp_path / 'repos.json'}"]) == 0
-    assert cli.main(["repos", "remove", "namespace/project1", f"--conf-path={tmp_path / 'repos.json'}"]) == 0
+    assert main(["repos", "list", f"--conf-path={tmp_path / 'repos.json'}"]) == 0
+    assert (
+        main(
+            [
+                "repos",
+                "remove",
+                "namespace/project1",
+                f"--conf-path={tmp_path / 'repos.json'}",
+                f"--repo-dir={tmp_path / 'repos'}",
+            ],
+        )
+        == 0
+    )
 
 
 def test_show_version(capsys: pytest.CaptureFixture) -> None:

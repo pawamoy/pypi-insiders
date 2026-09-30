@@ -1,30 +1,35 @@
-"""CLI `update` command."""
+# SPDX-License-Identifier: ISC
+#
+# ISC License
+#
+# Copyright (c) 2023, Timothée Mazzucotelli and contributors
+#
+# Permission to use, copy, modify, and/or distribute this software for any
+# purpose with or without fee is hereby granted, provided that the above
+# copyright notice and this permission notice appear in all copies.
+#
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+# ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+# ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+# OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-from __future__ import annotations
+"""Deprecated. Import from `pypi_insiders._internal.cli.update` instead."""
 
-from typing import TYPE_CHECKING
+# YORE: Bump 2: Remove file.
 
-from pypi_insiders.update import update_packages
+import warnings
+from typing import Any
 
-if TYPE_CHECKING:
-    import argparse
+from pypi_insiders._internal.cli import update as _update
 
 
-def run_update(opts: argparse.Namespace) -> int:
-    """Command to update packages.
-
-    Parameters:
-        opts: The parsed CLI arguments.
-
-    Returns:
-        A CLI exit code.
-    """
-    update_packages(
-        conf_path=opts.conf_path,
-        repo_dir=opts.repo_dir,
-        index_url=opts.index_url,
-        index_user=opts.index_user,
-        index_password=opts.index_password,
-        repos=opts.repositories,
+def __getattr__(name: str) -> Any:
+    warnings.warn(
+        "Importing from `pypi_insiders.cli.update` is deprecated. Import from `pypi_insiders._internal.cli.update` instead.",
+        DeprecationWarning,
+        stacklevel=2,
     )
-    return 0
+    return getattr(_update, name)

@@ -16,20 +16,21 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-"""Deprecated. Import from `pypi_insiders._internal.update` instead."""
+from __future__ import annotations
 
-# YORE: Bump 2: Remove file.
+from pathlib import Path
 
-import warnings
-from typing import Any
+from platformdirs import user_cache_dir, user_config_dir, user_data_dir
 
-from pypi_insiders._internal import update as _update
+_APP_NAME = "pypi-insiders"
+_APP_AUTHOR = _APP_NAME
 
-
-def __getattr__(name: str) -> Any:
-    warnings.warn(
-        "Importing from `pypi_insiders.update` is deprecated. Import from `pypi_insiders._internal.update` instead.",
-        DeprecationWarning,
-        stacklevel=2,
-    )
-    return getattr(_update, name)
+DEFAULT_PORT = 31411
+DEFAULT_INDEX_URL = f"http://localhost:{DEFAULT_PORT}"
+DEFAULT_INDEX_USER = ""
+DEFAULT_INDEX_PASSWORD = ""
+DEFAULT_REPO_DIR = Path(user_cache_dir(_APP_NAME, _APP_AUTHOR))
+DEFAULT_DIST_DIR = Path(user_data_dir(_APP_NAME, _APP_AUTHOR))
+DEFAULT_CONF_DIR = Path(user_config_dir(_APP_NAME))
+DEFAULT_CONF_PATH = DEFAULT_CONF_DIR / "repos.json"
+DEFAULT_WATCHER_SLEEP = 30 * 60

@@ -1,115 +1,35 @@
-"""CLI `watcher` command."""
+# SPDX-License-Identifier: ISC
+#
+# ISC License
+#
+# Copyright (c) 2023, Timothée Mazzucotelli and contributors
+#
+# Permission to use, copy, modify, and/or distribute this software for any
+# purpose with or without fee is hereby granted, provided that the above
+# copyright notice and this permission notice appear in all copies.
+#
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+# ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+# ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+# OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-from __future__ import annotations
+"""Deprecated. Import from `pypi_insiders._internal.cli.watcher` instead."""
 
-import json
-from typing import TYPE_CHECKING
+# YORE: Bump 2: Remove file.
 
-from pypi_insiders.watcher import start_watcher, stop_watcher, watcher_logs, watcher_loop, watcher_status
+import warnings
+from typing import Any
 
-if TYPE_CHECKING:
-    import argparse
+from pypi_insiders._internal.cli import watcher as _watcher
 
 
-def run_watcher_start(opts: argparse.Namespace) -> int:
-    """Command to start the watcher.
-
-    Parameters:
-        opts: The parsed CLI arguments.
-
-    Returns:
-        A CLI exit code.
-    """
-    start_watcher(
-        conf_path=opts.conf_path,
-        repo_dir=opts.repo_dir,
-        index_url=opts.index_url,
-        index_user=opts.index_user,
-        index_password=opts.index_password,
-        sleep=opts.sleep,
+def __getattr__(name: str) -> Any:
+    warnings.warn(
+        "Importing from `pypi_insiders.cli.watcher` is deprecated. Import from `pypi_insiders._internal.cli.watcher` instead.",
+        DeprecationWarning,
+        stacklevel=2,
     )
-    return 0
-
-
-def run_watcher_status(opts: argparse.Namespace) -> int:  # noqa: ARG001
-    """Command to show the watcher status.
-
-    Parameters:
-        opts: The parsed CLI arguments.
-
-    Returns:
-        A CLI exit code.
-    """
-    proc_data = watcher_status()
-    if proc_data:
-        print("Running:")  # noqa: T201
-        print(json.dumps(proc_data, indent=2, sort_keys=True))  # noqa: T201
-    else:
-        print("Not running")  # noqa: T201
-    return 0
-
-
-def run_watcher_stop(opts: argparse.Namespace) -> int:  # noqa: ARG001
-    """Command to stop the watcher.
-
-    Parameters:
-        opts: The parsed CLI arguments.
-
-    Returns:
-        A CLI exit code.
-    """
-    return 0 if stop_watcher() else 1
-
-
-def run_watcher_run(opts: argparse.Namespace) -> int:
-    """Command to run the watcher.
-
-    Parameters:
-        opts: The parsed CLI arguments.
-
-    Returns:
-        A CLI exit code.
-    """
-    watcher_loop(
-        conf_path=opts.conf_path,
-        repo_dir=opts.repo_dir,
-        index_url=opts.index_url,
-        index_user=opts.index_user,
-        index_password=opts.index_password,
-        sleep=opts.sleep,
-    )
-    return 0
-
-
-def run_watcher_logs(opts: argparse.Namespace) -> int:  # noqa: ARG001
-    """Command to show the watcher logs.
-
-    Parameters:
-        opts: The parsed CLI arguments.
-
-    Returns:
-        A CLI exit code.
-    """
-    watcher_logs()
-    return 0
-
-
-watcher_commands = {
-    "start": run_watcher_start,
-    "status": run_watcher_status,
-    "stop": run_watcher_stop,
-    "run": run_watcher_run,
-    "logs": run_watcher_logs,
-}
-
-
-def run_watcher(opts: argparse.Namespace) -> int:
-    """Command to manage the watcher.
-
-    Parameters:
-        opts: The parsed CLI arguments.
-
-    Returns:
-        A CLI exit code.
-    """
-    return watcher_commands.get(opts.watcher_subcommand, run_watcher_status)(opts)
+    return getattr(_watcher, name)
