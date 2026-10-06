@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.1.1](https://github.com/pawamoy/pypi-insiders/releases/tag/1.1.1) - 2026-10-06
+
+<small>[Compare with 1.1.0](https://github.com/pawamoy/pypi-insiders/compare/1.1.0...1.1.1)</small>
+
+### Build
+
+- Drop support for Python 3.10 ([60387e7](https://github.com/pawamoy/pypi-insiders/commit/60387e7d1e05ee84ddf183c7494bb5ffca03f4f9) by Timothée Mazzucotelli).
+
+### Code Refactoring
+
+- Deprecate public modules ([604fdc7](https://github.com/pawamoy/pypi-insiders/commit/604fdc71afe1b5bc94b82ec6822d604b3806f06b) by Timothée Mazzucotelli).
+
 ## [1.1.0](https://github.com/pawamoy/pypi-insiders/releases/tag/1.1.0) - 2025-02-04
 
 <small>[Compare with 1.0.0](https://github.com/pawamoy/pypi-insiders/compare/1.0.0...1.1.0)</small>
